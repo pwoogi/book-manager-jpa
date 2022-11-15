@@ -12,7 +12,7 @@ class MemberTest {
         user.setEmail("martin@gmail.com");
         user.setName("martin");
         user.setCreatedAt(LocalDateTime.now());
-        user.setUpdatedAt(LocalDateTime.now());
+//        user.setUpdatedAt(LocalDateTime.now());
 
 //        Member user1 = new Member(null, "martin", "martin@gmail.com", LocalDateTime.now(), LocalDateTime.now());
         Member user2 = new Member("martin", "martin@gmail.com");

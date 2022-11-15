@@ -20,4 +20,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query(value = "select * from member limit 1;", nativeQuery = true)
     Map<String, Object> findRawRecord();
+
+    List<Member> findByEmail(String email);
 }

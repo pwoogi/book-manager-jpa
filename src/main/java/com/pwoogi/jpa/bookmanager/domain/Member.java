@@ -1,6 +1,9 @@
 package com.pwoogi.jpa.bookmanager.domain;
 
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,7 +15,8 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 @Entity
-@Table(name = "member", indexes = {@Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
+@EntityListeners(value = {AuditingEntityListener.class, MemberEntityListener.class})
+//@Table(name = "member", indexes = {@Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
 public class Member {
 
     @Id
@@ -30,13 +34,48 @@ public class Member {
     private Gender gender;
 
     @Column(updatable = false)
+    @CreatedDate
     private LocalDateTime createdAt;
 
 //    @Column(insertable = false)
+    @LastModifiedDate
     private LocalDateTime updatedAt;
 
     @Transient //db 반영 x , obj 객체로 사용할 때
     private String testData;
 
-
+//    @PrePersist
+//    public void prePersist(){
+//        this.createdAt = LocalDateTime.now();
+//        this.updatedAt = LocalDateTime.now();
+//
+//    }
+//    @PostPersist
+//    public void postPersist(){
+//        System.out.println(">>> postPersist");
+//
+//    }
+//
+//    @PostUpdate
+//    public void postUpdate(){
+//        this.updatedAt = LocalDateTime.now();
+//
+//    }
+//
+//    @PreRemove
+//    public void preRemove() {
+//        System.out.println(">>> preRemove");
+//    }
+//
+//    @PostRemove
+//    public void postRemove(){
+//        System.out.println(">>> postRemove");
+//
+//    }
+//
+//    @PostLoad
+//    public void postLoad(){
+//        System.out.println(">>> postLoad");
+//
+//    }
 }

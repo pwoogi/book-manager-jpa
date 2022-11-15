@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.endsWith;
@@ -16,6 +17,8 @@ class MemberRepositoryTest {
 
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private MemberHistoryRepository memberHistoryRepository;
 
     @Test
     void crud(){
@@ -117,6 +120,48 @@ class MemberRepositoryTest {
         memberRepository.findAll().forEach(System.out::println);
 
         System.out.println(memberRepository.findRawRecord().get("gender"));
+
+    }
+    @Test
+    void listenerTest(){
+        Member member = new Member();
+        member.setEmail("chris@gmail.com");
+        member.setName("chris");
+
+        memberRepository.save(member);
+
+        Member member2 = memberRepository.findById(1L).orElseThrow(RuntimeException::new);
+        member2.setName("chrrrrris");
+
+        memberRepository.save(member2);
+
+//        memberRepository.deleteById(3L);
+    }
+    @Test
+    void prePersistTest(){
+        Member member = new Member();
+        member.setEmail("martin2@gmail.com");
+        member.setName("martin");
+//        member.setCreatedAt(LocalDateTime.now());
+//        member.setUpdatedAt(LocalDateTime.now());
+
+        memberRepository.save(member);
+        System.out.println(memberRepository.findByEmail("martin2@gmail.com"));
+    }
+
+    @Test
+    void memberHistoryTest(){
+        Member m = new Member();
+        m.setEmail("chris@gmail.com");
+        m.setName("chris-new");
+
+        memberRepository.save(m);
+
+        m.setName("chris-new-new");
+
+        memberRepository.save(m);
+
+        memberHistoryRepository.findAll().forEach(System.out::println);
 
     }
 }
