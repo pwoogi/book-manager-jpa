@@ -4,10 +4,7 @@ import com.pwoogi.jpa.bookmanager.domain.Member;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.*;
 
 import java.util.List;
 
@@ -68,5 +65,29 @@ class MemberRepositoryTest {
         System.out.println(m);
 
     }
+    @Test
+    void select(){
+        System.out.println(memberRepository.findByName("david"));
 
+    }
+
+    @Test
+    void pagingAndSortingTest(){
+
+        Member m1 = new Member("jack","jack@gmail.com");
+        Member m2 = new Member("chris","chris@gmail.com");
+        Member m3 = new Member("jackson","jackson@gmail.com");
+        Member m4 = new Member("jackie","jackie@gmail.com");
+        Member m5 = new Member("jack","jack@naver.com");
+
+        memberRepository.save(m1);
+        memberRepository.save(m2);
+        memberRepository.save(m3);
+        memberRepository.save(m4);
+        memberRepository.save(m5);
+
+
+        System.out.println("findFirstByName : " + memberRepository.findFirstByName("jack", Sort.by(Sort.Order.desc("id"), Sort.Order.asc("email"))));
+        System.out.println("findByName : " + memberRepository.findByName("jack", PageRequest.of(1,1, Sort.by(Sort.Order.desc("id")))).getTotalElements());
+    }
 }

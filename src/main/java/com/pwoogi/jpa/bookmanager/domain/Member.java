@@ -5,12 +5,14 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Builder
 @Entity
+@ToString
 public class Member {
 
     @Id
