@@ -59,5 +59,14 @@ class MemberRepositoryTest {
         memberRepository.findAll(example).forEach(System.out::println);
 
     }
+    @Test
+    void updateCrud(){
+        memberRepository.save(new Member("david","david@gmail.com"));
+
+        Member m = memberRepository.findById(1L).orElseThrow(RuntimeException::new);
+        m.setEmail("park@gmail.com");
+        System.out.println(m);
+
+    }
 
 }
