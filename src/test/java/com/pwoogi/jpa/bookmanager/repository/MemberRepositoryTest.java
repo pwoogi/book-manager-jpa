@@ -1,5 +1,6 @@
 package com.pwoogi.jpa.bookmanager.repository;
 
+import com.pwoogi.jpa.bookmanager.domain.Gender;
 import com.pwoogi.jpa.bookmanager.domain.Member;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,5 +90,33 @@ class MemberRepositoryTest {
 
         System.out.println("findFirstByName : " + memberRepository.findFirstByName("jack", Sort.by(Sort.Order.desc("id"), Sort.Order.asc("email"))));
         System.out.println("findByName : " + memberRepository.findByName("jack", PageRequest.of(1,1, Sort.by(Sort.Order.desc("id")))).getTotalElements());
+    }
+
+    @Test
+    void insertAndUpdateTest(){
+        Member member = new Member();
+        member.setName("martin");
+        member.setEmail("martin@gmail.com");
+        memberRepository.save(member);
+
+        Member member1 = memberRepository.findById(1L).orElseThrow(RuntimeException::new);
+        member1.setName("marrrrrtin");
+        memberRepository.save(member1);
+    }
+
+    @Test
+    void enumTest(){
+        Member member = new Member();
+        member.setName("martin");
+        memberRepository.save(member);
+
+        member.setGender(Gender.MALE);
+        memberRepository.save(member);
+        memberRepository.findById(1L).orElseThrow(RuntimeException::new);
+
+        memberRepository.findAll().forEach(System.out::println);
+
+        System.out.println(memberRepository.findRawRecord().get("gender"));
+
     }
 }

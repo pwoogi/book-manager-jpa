@@ -14,7 +14,7 @@ class MemberTest {
         user.setCreatedAt(LocalDateTime.now());
         user.setUpdatedAt(LocalDateTime.now());
 
-        Member user1 = new Member(null, "martin", "martin@gmail.com", LocalDateTime.now(), LocalDateTime.now());
+//        Member user1 = new Member(null, "martin", "martin@gmail.com", LocalDateTime.now(), LocalDateTime.now());
         Member user2 = new Member("martin", "martin@gmail.com");
 
         Member user3 = Member.builder()
