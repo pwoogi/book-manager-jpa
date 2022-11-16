@@ -1,5 +1,7 @@
 package com.pwoogi.jpa.bookmanager.domain;
 
+import com.pwoogi.jpa.bookmanager.domain.listener.Auditable;
+import com.pwoogi.jpa.bookmanager.domain.listener.MemberEntityListener;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -8,16 +10,17 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Data
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @Builder
 @Entity
 @EntityListeners(value = {AuditingEntityListener.class, MemberEntityListener.class})
 //@Table(name = "member", indexes = {@Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
-public class Member {
+public class Member extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,16 +36,16 @@ public class Member {
     @Enumerated(value = EnumType.STRING) //ORDINAL default 값임, enum 변경될 때 변동 가능성이 있기때문에 STRING 타입을 권장
     private Gender gender;
 
-    @Column(updatable = false)
-    @CreatedDate
-    private LocalDateTime createdAt;
-
-//    @Column(insertable = false)
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
-
-    @Transient //db 반영 x , obj 객체로 사용할 때
-    private String testData;
+//    @Column(updatable = false)
+//    @CreatedDate
+//    private LocalDateTime createdAt;
+//
+////    @Column(insertable = false)
+//    @LastModifiedDate
+//    private LocalDateTime updatedAt;
+//
+//    @Transient //db 반영 x , obj 객체로 사용할 때
+//    private String testData;
 
 //    @PrePersist
 //    public void prePersist(){

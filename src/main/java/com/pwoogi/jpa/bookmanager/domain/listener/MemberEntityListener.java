@@ -1,5 +1,7 @@
-package com.pwoogi.jpa.bookmanager.domain;
+package com.pwoogi.jpa.bookmanager.domain.listener;
 
+import com.pwoogi.jpa.bookmanager.domain.Member;
+import com.pwoogi.jpa.bookmanager.domain.MemberHistory;
 import com.pwoogi.jpa.bookmanager.repository.MemberHistoryRepository;
 import com.pwoogi.jpa.bookmanager.support.BeanUtils;
 

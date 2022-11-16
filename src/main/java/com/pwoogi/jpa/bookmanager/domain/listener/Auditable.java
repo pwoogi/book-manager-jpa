@@ -1,4 +1,4 @@
-package com.pwoogi.jpa.bookmanager.domain;
+package com.pwoogi.jpa.bookmanager.domain.listener;
 
 import java.time.LocalDateTime;
 

@@ -1,44 +1,36 @@
 package com.pwoogi.jpa.bookmanager.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.Hibernate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
-@EntityListeners(value = AuditingEntityListener.class)
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString(callSuper = true)
-public class Book extends BaseEntity {
+public class BookReviewInfo extends BaseEntity{
 
     @Id
     @GeneratedValue
     private Long id;
 
-    private String name;
+    private Long bookId;
 
-    private String category;
+    private float averageReviewScore;
 
-    private Long authorId;
-
-    private Long publisherId;
+    private int reviewCount;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Book book = (Book) o;
-        return id != null && Objects.equals(id, book.id);
+        BookReviewInfo that = (BookReviewInfo) o;
+        return id != null && Objects.equals(id, that.id);
     }
 
     @Override
