@@ -5,13 +5,15 @@ import com.pwoogi.jpa.bookmanager.domain.MemberHistory;
 import com.pwoogi.jpa.bookmanager.repository.MemberHistoryRepository;
 import com.pwoogi.jpa.bookmanager.support.BeanUtils;
 
+import javax.persistence.PostPersist;
+import javax.persistence.PostUpdate;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
 public class MemberEntityListener {
 
-    @PrePersist
-    @PreUpdate
+    @PostPersist
+    @PostUpdate
     public void prePersistAndPreUpdate(Object o){
 
         MemberHistoryRepository memberHistoryRepository = BeanUtils.getBean(MemberHistoryRepository.class);

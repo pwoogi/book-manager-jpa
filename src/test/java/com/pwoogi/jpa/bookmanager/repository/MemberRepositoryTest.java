@@ -2,6 +2,7 @@ package com.pwoogi.jpa.bookmanager.repository;
 
 import com.pwoogi.jpa.bookmanager.domain.Gender;
 import com.pwoogi.jpa.bookmanager.domain.Member;
+import com.pwoogi.jpa.bookmanager.domain.MemberHistory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -162,6 +163,23 @@ class MemberRepositoryTest {
         memberRepository.save(m);
 
         memberHistoryRepository.findAll().forEach(System.out::println);
+
+    }
+    @Test
+    void memberRelationTest(){
+        Member member = new Member();
+        member.setName("chris");
+        member.setEmail("chris@gmail.com");
+        member.setGender(Gender.MALE);
+        memberRepository.save(member);
+
+        member.setName("park");
+        memberRepository.save(member);
+
+        member.setEmail("park@gmail.com");
+        memberRepository.save(member);
+
+//        memberHistoryRepository.findAll().forEach(System.out::println);
 
     }
 }
