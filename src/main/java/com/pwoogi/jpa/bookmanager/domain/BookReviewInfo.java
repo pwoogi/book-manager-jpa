@@ -3,10 +3,7 @@ package com.pwoogi.jpa.bookmanager.domain;
 import lombok.*;
 import org.hibernate.Hibernate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -20,7 +17,10 @@ public class BookReviewInfo extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long bookId;
+//    private Long bookId;
+
+    @OneToOne(optional = false)
+    private Book book;
 
     private float averageReviewScore;
 

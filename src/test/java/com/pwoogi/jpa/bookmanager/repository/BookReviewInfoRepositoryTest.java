@@ -21,7 +21,7 @@ class BookReviewInfoRepositoryTest {
     void crudTest(){
 
         BookReviewInfo bookReviewInfo = new BookReviewInfo();
-        bookReviewInfo.setBookId(1L);
+//        bookReviewInfo.setBookId(1L);
         bookReviewInfo.setAverageReviewScore(4.5f);
         bookReviewInfo.setReviewCount(2);
 
@@ -32,17 +32,36 @@ class BookReviewInfoRepositoryTest {
     }
     @Test
     void crudTest2(){
+        givenBook();
+        givenBookReviewInfo();
+
+        Book result = bookReviewInfoRepository
+                .findById(1L).orElseThrow(RuntimeException::new)
+                .getBook();
+
+        System.out.println(">>>>" + result);
+
+        BookReviewInfo reviewInfo = bookRepository
+                .findById(1L)
+                .orElseThrow(RuntimeException::new)
+                .getBookReviewInfo();
+
+        System.out.println(">>>>" + reviewInfo);
+    }
+
+    private Book givenBook(){
         Book book = new Book();
         book.setName("JPA 복습");
         book.setAuthorId(1L);
         book.setPublisherId(1L);
 
-        bookRepository.save(book);
+        return bookRepository.save(book);
 
-        System.out.println(">>>>" + bookRepository.findAll());
+    }
 
+    private void givenBookReviewInfo(){
         BookReviewInfo bookReviewInfo = new BookReviewInfo();
-        bookReviewInfo.setBookId(1L);
+        bookReviewInfo.setBook(givenBook());
         bookReviewInfo.setAverageReviewScore(4.5f);
         bookReviewInfo.setReviewCount(2);
 
@@ -50,11 +69,6 @@ class BookReviewInfoRepositoryTest {
 
         System.out.println(">>>> " + bookReviewInfoRepository.findAll());
 
-        Book result = bookRepository.findById(bookReviewInfoRepository
-                .findById(1L).orElseThrow(RuntimeException::new)
-                .getBookId()).orElseThrow(RuntimeException::new);
-
-        System.out.println(">>>>" + result);
     }
 
 }

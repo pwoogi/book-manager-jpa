@@ -30,6 +30,10 @@ public class Book extends BaseEntity {
 
     private Long publisherId;
 
+    @OneToOne(mappedBy = "book")
+    @ToString.Exclude
+    private BookReviewInfo bookReviewInfo;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
