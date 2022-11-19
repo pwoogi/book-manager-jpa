@@ -15,7 +15,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString(callSuper = true)
-@Builder
+//@Builder
 @Entity
 @EntityListeners(value = {MemberEntityListener.class})
 //@Table(name = "member", indexes = {@Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
@@ -37,6 +37,7 @@ public class Member extends BaseEntity{
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "member_id", insertable = false, updatable = false)
+    @ToString.Exclude
     private List<MemberHistory> memberHistories = new ArrayList<>();
 
     @Override

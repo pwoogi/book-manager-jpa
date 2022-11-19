@@ -179,7 +179,11 @@ class MemberRepositoryTest {
         member.setEmail("park@gmail.com");
         memberRepository.save(member);
 
-//        memberHistoryRepository.findAll().forEach(System.out::println);
+        memberHistoryRepository.findAll().forEach(System.out::println);
+
+        System.out.println("MemberHistory.getMember() : " + memberHistoryRepository.findAll().get(0).getMember());
+
+
 
     }
 }

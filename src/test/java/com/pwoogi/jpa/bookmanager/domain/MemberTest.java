@@ -17,10 +17,10 @@ class MemberTest {
 //        Member user1 = new Member(null, "martin", "martin@gmail.com", LocalDateTime.now(), LocalDateTime.now());
         Member user2 = new Member("martin", "martin@gmail.com");
 
-        Member user3 = Member.builder()
-                .name("martin")
-                .email("martin@naver.com")
-                .build();
+//        Member user3 = Member.builder()
+//                .name("martin")
+//                .email("martin@naver.com")
+//                .build();
 
         System.out.println(">>>> : " + user);
     }

@@ -11,7 +11,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
+//@NoArgsConstructor
 @Entity
 public class MemberHistory extends BaseEntity {
 
@@ -19,23 +19,12 @@ public class MemberHistory extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "member_id")
-    private Long memberId;
-
     private String name;
 
     private String email;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        MemberHistory that = (MemberHistory) o;
-        return id != null && Objects.equals(id, that.id);
-    }
+    @ManyToOne
+    private Member member;
 
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
+
 }
