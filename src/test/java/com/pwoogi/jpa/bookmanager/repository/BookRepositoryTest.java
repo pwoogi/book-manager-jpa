@@ -18,8 +18,7 @@ class BookRepositoryTest {
         Book book = new Book();
         book.setName("Happy Pwoogi");
         book.setAuthorId(1L);
-        book.setPublisherId(1L);
-
+//        book.setPublisher();
         bookRepository.save(book);
 
         System.out.println(bookRepository.findAll());

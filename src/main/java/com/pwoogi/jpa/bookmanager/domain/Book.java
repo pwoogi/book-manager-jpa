@@ -1,5 +1,6 @@
 package com.pwoogi.jpa.bookmanager.domain;
 
+import com.pwoogi.jpa.bookmanager.repository.AuthorRepository;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,6 +9,9 @@ import org.hibernate.Hibernate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -28,11 +32,29 @@ public class Book extends BaseEntity {
 
     private Long authorId;
 
-    private Long publisherId;
+//    private Long publisherId;
 
     @OneToOne(mappedBy = "book")
     @ToString.Exclude
     private BookReviewInfo bookReviewInfo;
+
+    @OneToMany
+    @JoinColumn(name = "book_id")
+    @ToString.Exclude
+    private List<Review> reviews = new ArrayList<>();
+
+    @ManyToOne
+    @ToString.Exclude
+    private Publisher publisher;
+
+    @ManyToMany
+    @ToString.Exclude
+    private List<Author> authors = new ArrayList<>();
+
+    public void addAuthor(Author... author){
+        Collections.addAll(this.authors, author);
+
+    }
 
     @Override
     public boolean equals(Object o) {
