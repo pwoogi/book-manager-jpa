@@ -27,6 +27,22 @@ public class BookService {
 
         authorRepository.save(author);
 
+        throw new RuntimeException("오류가 나서 DB commit이 발생하지 않습니다");
+
+
+    }
+    @Transactional
+    public void get(Long id){
+        System.out.println(">>>>> :"  + bookRepository.findById(id));
+        System.out.println(">>>>> : " + bookRepository.findAll());
+
+        System.out.println(">>>>> :"  + bookRepository.findById(id));
+        System.out.println(">>>>> : " + bookRepository.findAll());
+
+        Book book = bookRepository.findById(id).get();
+        book.setName("바뀌려나?");
+        bookRepository.save(book);
+
     }
 
 }

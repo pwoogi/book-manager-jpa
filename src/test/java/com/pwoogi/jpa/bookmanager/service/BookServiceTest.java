@@ -1,5 +1,6 @@
 package com.pwoogi.jpa.bookmanager.service;
 
+import com.pwoogi.jpa.bookmanager.domain.Book;
 import com.pwoogi.jpa.bookmanager.repository.AuthorRepository;
 import com.pwoogi.jpa.bookmanager.repository.BookRepository;
 import org.junit.jupiter.api.Test;
@@ -27,4 +28,16 @@ class BookServiceTest {
 
     }
 
+    @Test
+    void isolationTest(){
+        Book book = new Book();
+        book.setName("JPA 복습하기");
+
+        bookRepository.save(book);
+
+        bookService.get(1L);
+
+        System.out.println(">>> " + bookRepository.findAll());
+
+    }
 }
