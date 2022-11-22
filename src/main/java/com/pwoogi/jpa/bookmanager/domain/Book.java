@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.Where;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -20,6 +21,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString(callSuper = true)
+@Where(clause = "deleted = false")
 public class Book extends BaseEntity {
 
     @Id
@@ -43,9 +45,11 @@ public class Book extends BaseEntity {
     @ToString.Exclude
     private List<Review> reviews = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @ToString.Exclude
     private Publisher publisher;
+
+    private boolean deleted;
 
     @ManyToMany
     @ToString.Exclude
