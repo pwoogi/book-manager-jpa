@@ -6,7 +6,11 @@ import com.pwoogi.jpa.bookmanager.repository.AuthorRepository;
 import com.pwoogi.jpa.bookmanager.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
 
 @Service
 @RequiredArgsConstructor
@@ -14,34 +18,47 @@ public class BookService {
 
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
+    private final AuthorService authorService;
+    private final EntityManager entityManager;
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED)
     public void putBookAndAuthor(){
         Book book = new Book();
         book.setName("JPA 복습하기");
 
         bookRepository.save(book);
 
-        Author author = new Author();
-        author.setName("park");
+        try {
+            authorService.putAuthor();
+        }catch (RuntimeException e){
 
-        authorRepository.save(author);
+        }
+//        Author author = new Author();
+//        author.setName("park");
+//
+//        authorRepository.save(author);
 
-        throw new RuntimeException("오류가 나서 DB commit이 발생하지 않습니다");
+//        throw new RuntimeException("오류가 발생하였고 transaction 상태를 확인해 봅시다.");
 
 
     }
-    @Transactional
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public void get(Long id){
         System.out.println(">>>>> :"  + bookRepository.findById(id));
         System.out.println(">>>>> : " + bookRepository.findAll());
 
+        entityManager.clear();
+
         System.out.println(">>>>> :"  + bookRepository.findById(id));
         System.out.println(">>>>> : " + bookRepository.findAll());
 
-        Book book = bookRepository.findById(id).get();
-        book.setName("바뀌려나?");
-        bookRepository.save(book);
+        bookRepository.update();
+
+        entityManager.clear();
+
+//        Book book = bookRepository.findById(id).get();
+//        book.setName("바뀌려나?");
+//        bookRepository.save(book);
 
     }
 

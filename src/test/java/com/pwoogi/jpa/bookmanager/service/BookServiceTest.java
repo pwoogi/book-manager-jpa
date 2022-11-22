@@ -22,7 +22,13 @@ class BookServiceTest {
 
     @Test
     void transactionTest(){
-        bookService.putBookAndAuthor();
+
+        try {
+            bookService.putBookAndAuthor();
+
+        }catch (RuntimeException e){
+            System.out.println(">>>> : " + e.getMessage());
+        }
         System.out.println("book : " + bookRepository.findAll());
         System.out.println("author : " + authorRepository.findAll());
 
