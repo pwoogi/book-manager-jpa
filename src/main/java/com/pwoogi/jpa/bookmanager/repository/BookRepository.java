@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.Tuple;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -36,4 +36,15 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Query(value = "select new com.pwoogi.jpa.bookmanager.dto.BookNameAndCategory(b.name, b.category) from Book b")
     Page<BookNameAndCategory> findBookNameAndCategory(Pageable pageable);
+
+    @Query(value = "select * from book", nativeQuery = true)
+    List<Book> findAllCustom();
+
+    @Transactional //native query의 경우 트랜잭션을 직접 선언해줘야함
+    @Modifying // dml에서 return되는 값이 적용된 로우 개수로 표시됨, 그래서 업데이트라는 것을 알려줘야하는 modifying 어노테이션 필요
+    @Query(value = "update book set category = 'IT전문서적'", nativeQuery = true)
+    int updateCategories();
+
+    @Query(value = "show tables", nativeQuery = true)
+    List<String> showTables();
 }

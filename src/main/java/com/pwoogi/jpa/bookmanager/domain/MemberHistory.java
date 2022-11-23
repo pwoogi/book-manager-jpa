@@ -24,6 +24,7 @@ public class MemberHistory extends BaseEntity {
     private String email;
 
     @ManyToOne
+    @ToString.Exclude
     private Member member;
 
 
