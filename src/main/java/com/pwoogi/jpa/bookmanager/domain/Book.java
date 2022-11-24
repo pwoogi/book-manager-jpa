@@ -1,5 +1,7 @@
 package com.pwoogi.jpa.bookmanager.domain;
 
+import com.pwoogi.jpa.bookmanager.converter.BookStatusConverter;
+import com.pwoogi.jpa.bookmanager.dto.BookStatus;
 import com.pwoogi.jpa.bookmanager.repository.AuthorRepository;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -50,6 +52,9 @@ public class Book extends BaseEntity {
     private Publisher publisher;
 
     private boolean deleted;
+
+    @Convert(converter = BookStatusConverter.class)
+    private BookStatus status; // 판매상태
 
     @ManyToMany
     @ToString.Exclude

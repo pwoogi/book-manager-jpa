@@ -98,6 +98,7 @@ class BookRepositoryTest {
 //        bookRepository.findAllCustom().forEach(System.out::println);
 
         List<Book> books = bookRepository.findAll();
+
         for(Book book : books){
             book.setCategory("IT전문서적");
         }
@@ -108,6 +109,12 @@ class BookRepositoryTest {
         System.out.println("affected rows : " + bookRepository.updateCategories());
         bookRepository.findAllCustom().forEach(System.out::println);
         System.out.println(bookRepository.showTables());
+    }
+
+    @Test
+    void converterTest(){
+        bookRepository.findAll().forEach(System.out::println);
+
     }
 
 }
